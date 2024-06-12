@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+/* eslint-disable no-unused-vars */
+import { Container } from "react-bootstrap";
+import "./App.scss";
+import Header from "./components/Header";
+import TableUsers from "./components/TableUsers";
+import ModalAddNew from "./components/ui/ModalAddNew";
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 function App() {
-  const [count, setCount] = useState(0)
+    const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const handleClose = () => {
+        setIsShowModalAddNew(!isShowModalAddNew);
+    };
+    return (
+        <>
+            <div className="app-container">
+                <Header />
+                <Container>
+                    <div className="my-3 add-new ">
+                        <b> List Users:</b>
+                        <button
+                            className="btn btn-success"
+                            onClick={() => setIsShowModalAddNew(true)}
+                        >
+                            Add new user
+                        </button>
+                    </div>
+                    <TableUsers />
+                </Container>
+
+                <ModalAddNew
+                    show={isShowModalAddNew}
+                    handleClose={handleClose}
+                />
+            </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                // transition: Bounce,
+            />
+
+            <ToastContainer />
+        </>
+    );
 }
 
-export default App
+export default App;
